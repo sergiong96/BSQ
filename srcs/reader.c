@@ -121,18 +121,21 @@ t_details	get_map_details(char *map)
 	i = 0;
 	map_details.rows = malloc(50);
 	map_details.cols = 0;
-	map_details.fill = malloc(2);
-	map_details.obstacle = malloc(2);
-	map_details.empty = malloc(2);
+	map_details.fill = ' ';
+	map_details.obstacle = ' ';
+	map_details.empty = ' ';
 	first_rows = get_two_first_rows(map);
 	while (first_rows[i] >= '0' && first_rows[i] <= '9')
 	{
 		ft_append(map_details.rows, first_rows[i]);
 		i++;
 	}
-	ft_append(map_details.empty, first_rows[i]);
+	/*ft_append(map_details.empty, first_rows[i]);
 	ft_append(map_details.obstacle, first_rows[++i]);
-	ft_append(map_details.fill, first_rows[++i]);
+	ft_append(map_details.fill, first_rows[++i]);*/
+	map_details.empty = first_rows[i];
+	map_details.obstacle = first_rows[++i];
+	map_details.fill = first_rows[++i];
 	while (first_rows[++i] != '\0')
 	{
 		if (first_rows[i] != '\n')
@@ -150,22 +153,22 @@ char	**create_muti_array(char *map, t_details map_details)
 	int		i;
 
 	row = 0;
-	i = -1;
-	multi_map = malloc(char_to_int(map_details.rows));
-	index = -1;
+	i = 0;
+	multi_map = malloc(char_to_int(map_details.rows) * sizeof(char *));
+	index = 0;
 	while (map[index] != '\n')
-	{
 		index++;
-	}
-	multi_map[row] = malloc(map_details.cols);
+	multi_map[row] = malloc((map_details.cols + 1) * sizeof(char));
 	while (map[++index] != '\0')
 	{
-		multi_map[row][++i] = map[index];
+		multi_map[row][i] = map[index];
+		i++;
 		if (map[index] == '\n')
 		{
+			multi_map[row][i - 1] = '\0';
 			row++;
-			multi_map[row] = malloc(map_details.cols);
-			i = -1;
+			multi_map[row] = malloc((map_details.cols + 1) * sizeof(char));
+			i = 0;
 		}
 	}
 	return (multi_map);
