@@ -15,11 +15,11 @@ typedef struct s_bsq
 
 typedef struct s_details
 {
-	char *cols;
+	int	cols;
 	char *rows;
-	char empty;
-	char obstacle;
-	char fill;
+	char *empty;
+	char *obstacle;
+	char *fill;
 } t_details;
 
 
