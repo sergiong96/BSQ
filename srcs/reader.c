@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   reader.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: senavarr <senavarr@student.42malaga.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/09 18:48:43 by senavarr          #+#    #+#             */
+/*   Updated: 2024/07/09 18:50:01 by senavarr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/bsq.h"
 
 /*Returns the real buffer of the map*/
 int	get_buffer(char *filename)
 {
 	char	temp_buffer[2048];
-	int	fo;
-	int	bytes;
-	int	total_bytes;
-	
+	int		fo;
+	int		bytes;
+	int		total_bytes;
+
 	bytes = 0;
 	total_bytes = 0;
 	fo = open(filename, O_RDONLY);
@@ -16,8 +28,7 @@ int	get_buffer(char *filename)
 		close(fo);
 		exit(-1);
 	}
-	
-	while((bytes = read(fo, temp_buffer, 2048)) > 0)
+	while ((bytes = read(fo, temp_buffer, 2048)) > 0)
 	{
 		total_bytes += bytes;
 	}
@@ -32,8 +43,8 @@ int	get_buffer(char *filename)
 /*Returns the map as an unidimensional string*/
 char	*get_map(char *filename)
 {
-	int	fo;
-	int	reader;
+	int		fo;
+	int		reader;
 	char	*map;
 
 	map = malloc(get_buffer(filename));
@@ -55,8 +66,8 @@ char	*get_map(char *filename)
 /*Returns the two first rows, in order to know the symbols and dimensions*/
 char	*get_two_first_rows(char *map)
 {
-	int	i;
-	int	count;
+	int		i;
+	int		count;
 	char	*rows;
 
 	rows = malloc(2048 * sizeof(char));
@@ -76,9 +87,9 @@ char	*get_two_first_rows(char *map)
 char	*ft_append(char *dest, char src)
 {
 	int	i;
-	
+
 	i = 0;
-	while(dest[i]!='\0')
+	while (dest[i] != '\0')
 		i++;
 	dest[i] = src;
 	dest[++i] = '\0';
@@ -89,7 +100,7 @@ int	char_to_int(char *number)
 {
 	int	num;
 	int	i;
-	
+
 	num = 0;
 	i = 0;
 	while (number[i] >= '0' && number[i] <= '9')
@@ -100,14 +111,13 @@ int	char_to_int(char *number)
 	return (num);
 }
 
-
 /*Returns a structure with the details of the map*/
 t_details	get_map_details(char *map)
 {
-	char	*first_rows;
-	int	i;
 	t_details	map_details;
-	
+	char		*first_rows;
+	int			i;
+
 	i = 0;
 	map_details.rows = malloc(50);
 	map_details.cols = 0;
@@ -115,7 +125,7 @@ t_details	get_map_details(char *map)
 	map_details.obstacle = malloc(2);
 	map_details.empty = malloc(2);
 	first_rows = get_two_first_rows(map);
-	while(first_rows[i] >= '0' && first_rows[i] <='9')
+	while (first_rows[i] >= '0' && first_rows[i] <= '9')
 	{
 		ft_append(map_details.rows, first_rows[i]);
 		i++;
@@ -123,56 +133,54 @@ t_details	get_map_details(char *map)
 	ft_append(map_details.empty, first_rows[i]);
 	ft_append(map_details.obstacle, first_rows[++i]);
 	ft_append(map_details.fill, first_rows[++i]);
-	while(first_rows[++i] != '\0')
+	while (first_rows[++i] != '\0')
 	{
-		if(first_rows[i] != '\n')
+		if (first_rows[i] != '\n')
 			map_details.cols++;
 	}
 	return (map_details);
 }
 
+/*Returns the map as a bidimensional array*/
 char	**create_muti_array(char *map, t_details map_details)
 {
-	int	index;
 	char	**multi_map;
-	int	row;
-	int	i;
+	int		index;
+	int		row;
+	int		i;
 
 	row = 0;
-	i=-1;
+	i = -1;
 	multi_map = malloc(char_to_int(map_details.rows));
 	index = -1;
-	while(map[index]!='\n')
+	while (map[index] != '\n')
 	{
 		index++;
 	}
-	multi_map[row]=malloc(map_details.cols);
+	multi_map[row] = malloc(map_details.cols);
 	while (map[++index] != '\0')
 	{
 		multi_map[row][++i] = map[index];
-		if(map[index] == '\n')
+		if (map[index] == '\n')
 		{
 			row++;
-			multi_map[row]=malloc(map_details.cols);
-			i=-1;
+			multi_map[row] = malloc(map_details.cols);
+			i = -1;
 		}
 	}
-	
 	return (multi_map);
 }
-void	read_map(char *filename)
-{
-	char	*map;
-	char	**multi_map;
 
+
+/*Reads the map and returns it as a bidimensional array*/
+char	**read_map(char *filename)
+{
+	char		*map;
+	char		**multi_map;
 	t_details	map_details;
+
 	map = get_map(filename);
 	map_details = get_map_details(map);
-	multi_map=create_muti_array(map, map_details);
-	
-
-
+	multi_map = create_muti_array(map, map_details);
+	return (multi_map);
 }
-
-
-

@@ -6,12 +6,12 @@
 # include <fcntl.h>
 # include <stdio.h>
 
-typedef struct s_bsq
+typedef struct s_lsquare
 {
 	int x;
 	int y;
 	int size;
-} t_bsq;
+} t_lsquare;
 
 typedef struct s_details
 {
@@ -23,8 +23,10 @@ typedef struct s_details
 } t_details;
 
 
-void	read_map(char *filename);
-
-
+char**	read_map(char *filename);
+t_details	get_map_details(char *map);
+t_details	square_search(char **map, t_details map_details);
+char	*get_map(char *filename);
+int	char_to_int(char *number);
 
 #endif
