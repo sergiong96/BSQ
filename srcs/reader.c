@@ -96,21 +96,6 @@ char	*ft_append(char *dest, char src)
 	return (dest);
 }
 
-int	char_to_int(char *number)
-{
-	int	num;
-	int	i;
-
-	num = 0;
-	i = 0;
-	while (number[i] >= '0' && number[i] <= '9')
-	{
-		num = num * 10 + (number[i] - 48);
-		i++;
-	}
-	return (num);
-}
-
 /*Returns a structure with the details of the map*/
 t_details	get_map_details(char *map)
 {
@@ -119,7 +104,7 @@ t_details	get_map_details(char *map)
 	int			i;
 
 	i = 0;
-	map_details.rows = malloc(50);
+	map_details.rows = 0;
 	map_details.cols = 0;
 	map_details.fill = ' ';
 	map_details.obstacle = ' ';
@@ -127,12 +112,9 @@ t_details	get_map_details(char *map)
 	first_rows = get_two_first_rows(map);
 	while (first_rows[i] >= '0' && first_rows[i] <= '9')
 	{
-		ft_append(map_details.rows, first_rows[i]);
+		map_details.rows = map_details.rows * 10 + (first_rows[i] - 48);
 		i++;
 	}
-	/*ft_append(map_details.empty, first_rows[i]);
-	ft_append(map_details.obstacle, first_rows[++i]);
-	ft_append(map_details.fill, first_rows[++i]);*/
 	map_details.empty = first_rows[i];
 	map_details.obstacle = first_rows[++i];
 	map_details.fill = first_rows[++i];
@@ -154,7 +136,7 @@ char	**create_muti_array(char *map, t_details map_details)
 
 	row = 0;
 	i = 0;
-	multi_map = malloc(char_to_int(map_details.rows) * sizeof(char *));
+	multi_map = malloc(map_details.rows * sizeof(char *));
 	index = 0;
 	while (map[index] != '\n')
 		index++;

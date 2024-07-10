@@ -16,7 +16,7 @@ typedef struct s_lsquare
 typedef struct s_details
 {
 	int	cols;
-	char *rows;
+	int 	rows;
 	char empty;
 	char obstacle;
 	char fill;
@@ -27,6 +27,7 @@ char**	read_map(char *filename);
 t_details	get_map_details(char *map);
 t_lsquare	square_search(char **map, t_details map_details);
 char	*get_map(char *filename);
-int	char_to_int(char *number);
+char	**fill_map(char **multi_map, t_lsquare coords, t_details map_details);
+void	print_final_map(char **multi_map, t_details map_details);
 
 #endif

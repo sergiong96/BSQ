@@ -8,9 +8,8 @@ SRC_FILES = srcs/*.c
 all: $(NAME)
 
 $(NAME): $(SRC_FILES)
-	cc $(SRC_FILES) -o $(NAME)
+	cc $(CFLAGS) $(SRC_FILES) -o $(NAME)
 
 fclean: 
 	rm $(NAME)
-	
-#AÑADIR FLAGS AL TERMINAR
+

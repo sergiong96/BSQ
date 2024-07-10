@@ -12,7 +12,7 @@
 
 #include "../includes/bsq.h"
 
-/*Checks if there are obstacles in previous cols, returning 1 if it finds one*/
+/*Checks if there are obstacles in the current or previous columns, returning 1 if it finds one*/
 int	col_checker(char **multi_map, int x, int y, int diagonal_move, t_details map_details)
 {
 	int	count;
@@ -32,7 +32,7 @@ int	col_checker(char **multi_map, int x, int y, int diagonal_move, t_details map
 	return (0);
 }
 
-/*Checks if there are obstacles in previous rows, returning 1 if it finds one*/
+/*Checks if there are obstacles in the current or previous rows, returning 1 if it finds one*/
 int	row_checker(char **multi_map, int x, int y, int diagonal_move, t_details map_details)
 {
 	int	count;
@@ -60,7 +60,7 @@ t_lsquare	diagonal_search(char **multi_map, int x, int y, t_details map_details)
 
 	coords.size = 0;
 	diagonal_move = 0;
-	while (x < (char_to_int(map_details.rows)) && y < (map_details.cols) && multi_map[x][y] != map_details.obstacle)
+	while (x < map_details.rows - 1 && y < map_details.cols - 1 && multi_map[x][y] != map_details.obstacle)
 	{
 		x++;
 		y++;
@@ -94,18 +94,21 @@ t_lsquare	square_search(char **multi_map, t_details map_details)
 	t_largest_square.size = 0;
 	temp_largest_square.size = 0;
 	x = -1;
-	while (++x < char_to_int(map_details.rows) - 1)
+	while (++x < (map_details.rows) - 1)
 	{
 		y = -1;
 		while (++y < map_details.cols - 1)
 		{
 			temp_largest_square = diagonal_search(multi_map, x, y, map_details);
-			if(temp_largest_square.size>0)
-			{
-				printf("Cuadrado libre en %d %d. Tamaño: %d\n",temp_largest_square.x,temp_largest_square.y, temp_largest_square.size);
-			}
+			//if (temp_largest_square.size > 0)
+			//{
+				//printf("Cuadrado libre en %d %d. Tamaño: %d\n",temp_largest_square.x,temp_largest_square.y, temp_largest_square.size);
+			//}
 			if (temp_largest_square.size > t_largest_square.size)
+			{
 				t_largest_square = temp_largest_square;
+				//printf("Mayor cuadrado en %d %d. Tamaño: %d\n",t_largest_square.x,t_largest_square.y, t_largest_square.size);	
+			}
 		}
 	}
 	return (t_largest_square);
