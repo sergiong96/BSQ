@@ -19,17 +19,17 @@ int	main(int argc, char *argv[])
 	t_details	map_details;
 	t_lsquare	coords;
 	
-	if (argc == 2)
+	argv++;
+	while(*argv != NULL)
 	{
-		single_map = get_map(argv[1]);
+		single_map = get_map(*argv);
 		map_details = get_map_details(single_map);
-		multi_map = read_map(argv[1]);
+		multi_map = read_map(*argv);
 		coords = square_search(multi_map, map_details);
 		fill_map(multi_map, coords, map_details);
-	}
-	else
-	{
-		//Incorrect args
+		argv++;
+		if (argc > 2)
+			write(1, "\n", 1);
 	}
 	return (0);
 }

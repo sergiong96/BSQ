@@ -29,5 +29,6 @@ t_lsquare	square_search(char **map, t_details map_details);
 char	*get_map(char *filename);
 char	**fill_map(char **multi_map, t_lsquare coords, t_details map_details);
 void	print_final_map(char **multi_map, t_details map_details);
+char	**create_muti_array(char *map, t_details map_details);
 
 #endif

@@ -20,7 +20,6 @@ char	**fill_map(char **multi_map, t_lsquare coords, t_details map_details)
 	int	count;
 	int	inn_count;
 
-	printf("El cuadrado mayor empieza en (%d %d) y su tamaño es %d\n", coords.x, coords.y, coords.size);
 	count = -1;
 	i = coords.x;
 	while(++count <= coords.size)

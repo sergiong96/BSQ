@@ -28,10 +28,12 @@ int	get_buffer(char *filename)
 		close(fo);
 		exit(-1);
 	}
-	while ((bytes = read(fo, temp_buffer, 2048)) > 0)
-	{
-		total_bytes += bytes;
-	}
+	bytes = read(fo, temp_buffer, sizeof(temp_buffer));
+    	while (bytes > 0)
+    	{
+    		total_bytes += bytes;
+    		bytes = read(fo, temp_buffer, sizeof(temp_buffer));
+    	}
 	if (bytes == -1)
 	{
 		close(fo);
@@ -83,19 +85,6 @@ char	*get_two_first_rows(char *map)
 	return (rows);
 }
 
-/*Concat a char to a string*/
-char	*ft_append(char *dest, char src)
-{
-	int	i;
-
-	i = 0;
-	while (dest[i] != '\0')
-		i++;
-	dest[i] = src;
-	dest[++i] = '\0';
-	return (dest);
-}
-
 /*Returns a structure with the details of the map*/
 t_details	get_map_details(char *map)
 {
@@ -125,37 +114,6 @@ t_details	get_map_details(char *map)
 	}
 	return (map_details);
 }
-
-/*Returns the map as a bidimensional array*/
-char	**create_muti_array(char *map, t_details map_details)
-{
-	char	**multi_map;
-	int		index;
-	int		row;
-	int		i;
-
-	row = 0;
-	i = 0;
-	multi_map = malloc(map_details.rows * sizeof(char *));
-	index = 0;
-	while (map[index] != '\n')
-		index++;
-	multi_map[row] = malloc((map_details.cols + 1) * sizeof(char));
-	while (map[++index] != '\0')
-	{
-		multi_map[row][i] = map[index];
-		i++;
-		if (map[index] == '\n')
-		{
-			multi_map[row][i - 1] = '\0';
-			row++;
-			multi_map[row] = malloc((map_details.cols + 1) * sizeof(char));
-			i = 0;
-		}
-	}
-	return (multi_map);
-}
-
 
 /*Reads the map and returns it as a bidimensional array*/
 char	**read_map(char *filename)

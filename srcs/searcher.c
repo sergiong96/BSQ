@@ -22,10 +22,8 @@ int	col_checker(char **multi_map, int x, int y, int diagonal_move, t_details map
 		return (1);
 	while (++count < diagonal_move)
 	{
-		//printf("Col va a comprobar (%d, %d). Tamaño: %d\n", x, y, size);
 		if (multi_map[x][--y] == map_details.obstacle)
 		{
-			//printf("Obstáculo en (%d, %d). Tamaño: %d\n\n", x, y, diagonal_move);
 			return (1);
 		}
 	}
@@ -42,10 +40,8 @@ int	row_checker(char **multi_map, int x, int y, int diagonal_move, t_details map
 		return (1);
 	while (++count < diagonal_move)
 	{
-		//printf("Row va a comprobar (%d, %d). Tamaño: %d\n", x, y, size);
 		if (multi_map[--x][y] == map_details.obstacle)
 		{
-			//printf("Obstáculo en (%d, %d). Tamaño: %d\n\n", x, y, diagonal_move);
 			return (1);
 		}
 	}
@@ -100,14 +96,9 @@ t_lsquare	square_search(char **multi_map, t_details map_details)
 		while (++y < map_details.cols - 1)
 		{
 			temp_largest_square = diagonal_search(multi_map, x, y, map_details);
-			//if (temp_largest_square.size > 0)
-			//{
-				//printf("Cuadrado libre en %d %d. Tamaño: %d\n",temp_largest_square.x,temp_largest_square.y, temp_largest_square.size);
-			//}
 			if (temp_largest_square.size > t_largest_square.size)
 			{
 				t_largest_square = temp_largest_square;
-				//printf("Mayor cuadrado en %d %d. Tamaño: %d\n",t_largest_square.x,t_largest_square.y, t_largest_square.size);	
 			}
 		}
 	}
