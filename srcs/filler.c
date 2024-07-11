@@ -6,13 +6,14 @@
 /*   By: senavarr <senavarr@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 11:33:46 by senavarr          #+#    #+#             */
-/*   Updated: 2024/07/10 11:33:50 by senavarr         ###   ########.fr       */
+/*   Updated: 2024/07/11 10:19:02 by vzambran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/bsq.h"
 
-/*Fills the largest free square with the filled symbol, starting in the given coordinates*/
+/*Fills the largest free square with the filled symbol,
+ * starting in the given coordinates*/
 char	**fill_map(char **multi_map, t_lsquare coords, t_details map_details)
 {
 	int	i;
@@ -22,11 +23,11 @@ char	**fill_map(char **multi_map, t_lsquare coords, t_details map_details)
 
 	count = -1;
 	i = coords.x;
-	while(++count <= coords.size)
+	while (++count <= coords.size)
 	{
 		j = coords.y;
 		inn_count = -1;
-		while(++inn_count <= coords.size)
+		while (++inn_count <= coords.size)
 		{
 			multi_map[i][j] = map_details.fill;
 			j++;

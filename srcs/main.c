@@ -6,7 +6,7 @@
 /*   By: senavarr <senavarr@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 18:48:17 by senavarr          #+#    #+#             */
-/*   Updated: 2024/07/09 18:48:37 by senavarr         ###   ########.fr       */
+/*   Updated: 2024/07/11 10:23:43 by vzambran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	main(int argc, char *argv[])
 {
-	char	*single_map;
-	char	**multi_map;
+	char		*single_map;
+	char		**multi_map;
 	t_details	map_details;
 	t_lsquare	coords;
-	
+
 	argv++;
-	while(*argv != NULL)
+	while (*argv != NULL)
 	{
 		single_map = get_map(*argv);
 		map_details = get_map_details(single_map);

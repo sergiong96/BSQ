@@ -28,12 +28,12 @@ int	get_buffer(char *filename)
 		close(fo);
 		exit(-1);
 	}
-	bytes = read(fo, temp_buffer, sizeof(temp_buffer));
-    	while (bytes > 0)
-    	{
-    		total_bytes += bytes;
-    		bytes = read(fo, temp_buffer, sizeof(temp_buffer));
-    	}
+	bytes = read(fo, temp_buffer, 2048);
+	while (bytes > 0)
+	{
+		total_bytes += bytes;
+		bytes = read(fo, temp_buffer, 2048);
+	}
 	if (bytes == -1)
 	{
 		close(fo);
